@@ -1,0 +1,26 @@
+{
+    "ft_transformer": {
+        "embed_dim": 192,
+        "num_heads": 4,
+        "ff_dim_factor": 4,
+        "num_layers": 3,
+        "lr": 6.633442318929932e-05,
+        "weight_decay": 1.969683126228165e-05,
+        "dropout": 0.2356785069572193
+    },
+    "lightgbm": {
+        "n_estimators": 642,
+        "learning_rate": 0.04515157839370836,
+        "num_leaves": 36,
+        "max_depth": 6,
+        "reg_alpha": 2.722043594358596e-07,
+        "reg_lambda": 2.0379171849455357e-05,
+        "colsample_bytree": 0.6570997858667309,
+        "subsample": 0.9980314167105858,
+        "min_child_samples": 92
+    },
+    "logistic_regression": {
+        "C": 2.4633756846663513,
+        "solver": "saga"
+    }
+}
