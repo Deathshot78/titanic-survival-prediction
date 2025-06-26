@@ -1,4 +1,9 @@
 ![Titanic Banner](assets/titanic_header.png)
+[![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1-EE4C2C?logo=pytorch)](https://pytorch.org/)
+[![Made with ML](https://img.shields.io/badge/Made%20with-ML-blueviolet?logo=openai)]()
+[![Dataset: Kaggle](https://img.shields.io/badge/Dataset-Titanic%20(Kaggle)-orange?logo=kaggle)](https://www.kaggle.com/competitions/titanic/data)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 # 🚢 Titanic Survival Prediction — A Full-Scale Machine Learning Pipeline
 
@@ -110,8 +115,8 @@ To explore state-of-the-art deep learning for tabular data, an FT-Transformer wa
 ### 1. Clone the Repository
 
 ``` bash
-git clone [https://github.com/your-username/titanic-ml-ft-transformer.git](https://github.com/your-username/titanic-ml-ft-transformer.git)
-cd titanic-ml-ft-transformer
+git clone [https://github.com/Deathshot78/titanic-survival-prediction](https://github.com/Deathshot78/titanic-survival-prediction)
+cd titanic-survival-prediction
 ```
 
 ### 2. Install Dependencies
@@ -124,14 +129,26 @@ pip install -r requirements.txt
 
 ### 3. Prepare the Data
 
-Download `train.csv` and `test.csv` from the [Kaggle Titanic dataset](https://www.kaggle.com/c/titanic/data) and place them in the project root directory.
+You can preprocess the data with `preprocess.py` although using this script will be included in the other scripts so you wouldn't need to run this individually.
 
-### 4. Run the Full Pipeline
+``` bash
+python preprocess.py
+```
+
+### 4. Find the best hyperparameters using Optuna
+
+Here you will use the `objective_optuna.py` script to find the best hyperparameters for all 3 models.
+
+``` bash
+python objective_optuna.py
+```
+
+### 5. Run the Full Pipeline
 
 Execute the main Python script to run:
 
-* Feature engineering
-* Hyperparameter tuning
+* Prepare the data
+* Extract the best hyperparams from `best_hyperparameters.json` , found by `objective_optuna.py`
 * Model training
 * Submission generation
 
@@ -175,19 +192,7 @@ titanic-ml-ft-transformer/
 ├── notebooks/            # Jupyter Notebook for the project
 ├── requirements.txt
 └── README.md
-
 ```
-
----
-
-## 📈 Future Improvements (TODOs)
-
-* Add cross-validation support for final evaluation.
-* Visualize attention maps from FT-Transformer.
-* Experiment with stacking and weighted ensembling.
-* Create a Streamlit or Gradio app for deployment.
-
----
 
 ## 📣 Acknowledgments
 
