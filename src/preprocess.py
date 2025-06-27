@@ -43,7 +43,7 @@ def preprocess_data(train_path='data/train.csv', test_path='data/test.csv'):
     
     combined_df = pd.concat([train_df_orig.drop('Survived', axis=1), test_df_orig], ignore_index=True)
 
-    # --- Feature Engineering ---
+    # Feature Engineering
     def engineer_features(df):
         df['Title'] = df['Name'].str.extract(' ([A-Za-z]+)\\.', expand=False)
         common_titles = ['Mr', 'Miss', 'Mrs', 'Master']
@@ -55,10 +55,9 @@ def preprocess_data(train_path='data/train.csv', test_path='data/test.csv'):
 
     combined_df = engineer_features(combined_df)
 
-    # --- Imputation ---
+    # Imputation 
     combined_df['Embarked'].fillna(combined_df['Embarked'].mode()[0], inplace=True)
-    
-    # FIX: Robust Age Imputation
+
     # First, calculate the grouped medians. This might have NaNs for groups where all ages are missing.
     age_median_map = combined_df.groupby(['Pclass', 'Title'])['Age'].median()
     # Then, calculate a global median to use as a fallback.
@@ -74,7 +73,7 @@ def preprocess_data(train_path='data/train.csv', test_path='data/test.csv'):
     # Robust Fare Imputation
     combined_df['Fare'] = combined_df.groupby('Pclass')['Fare'].transform(lambda x: x.fillna(x.median()))
 
-    # --- Final Feature Selection ---
+    # Final Feature Selection 
     numerical_features = ['Age', 'Fare', 'FamilySize', 'IsAlone']
     categorical_features = ['Pclass', 'Sex', 'Embarked', 'Title', 'Deck']
     
@@ -86,7 +85,7 @@ def preprocess_data(train_path='data/train.csv', test_path='data/test.csv'):
         print(combined_df_processed.isnull().sum())
         raise ValueError("Preprocessing failed, NaNs remain in the data.")
     
-    # --- Split back into final training and prediction sets ---
+    # Split back into final training and prediction sets 
     X_full = combined_df_processed.iloc[:len(train_df_orig)]
     X_predict = combined_df_processed.iloc[len(train_df_orig):]
 
@@ -118,11 +117,11 @@ class TitanicDataModule(pl.LightningDataModule):
         self.scaler = StandardScaler()
 
     def setup(self, stage=None):
-        # Scale numerical features based on the training set\n",
+        # Scale numerical features based on the training set
         self.X_full_scaled = self.scaler.fit_transform(self.X_full)
         self.X_predict_scaled = self.scaler.transform(self.X_predict)
 
-        # Split data for training, validation, and testing\n",
+        # Split data for training, validation, and testing
         X_train, X_temp, y_train, y_temp = train_test_split(self.X_full_scaled, self.y_full, test_size=0.3, random_state=42, stratify=self.y_full)
         X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp)
 

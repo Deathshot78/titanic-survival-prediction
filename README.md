@@ -75,6 +75,18 @@ A robust preprocessing pipeline was developed to clean the data and create infor
   * **Fare**: The single missing fare value in the test set was imputed using the median fare of its corresponding `Pclass`.
   * **Embarked**: The two missing port of embarkation values were filled with the most frequent port ('S').
 
+### A Note on Preprocessing and Data Leakage
+
+In this project, the training and test datasets were temporarily combined to perform feature engineering and imputation (e.g., filling missing `Age` values). This is a common and pragmatic approach in Kaggle competitions for two main reasons:
+
+1.  **Consistency**: It ensures that categorical features are encoded identically and consistently across both datasets.
+
+2.  **Robust Statistics**: For a smaller dataset like this one, it allows for the calculation of more stable statistics (like medians) for imputation.
+
+However, it's important to acknowledge that this introduces a minor form of **data leakage**, as information from the test set (like its median age) is used to transform the training set. In a real-world production environment where the test data is truly unseen, the correct approach would be to fit all preprocessing steps (like scalers and imputers) **only on the training data** and then use the fitted objects to transform the test data.
+
+For this project, the impact of this leakage is considered minimal and is a trade-off made for convenience and preprocessing consistency.
+
 ---
 
 ## 🤖 FT-Transformer from Scratch: Model Architecture

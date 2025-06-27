@@ -14,7 +14,6 @@ import warnings
 import logging
 
 # --- Step 1: Import from your custom scripts ---
-# Make sure preprocess.py and models.py are in the same directory.
 try:
     from preprocess import preprocess_data
     from models import FTTransformerFromScratch, TitanicFTDataset
