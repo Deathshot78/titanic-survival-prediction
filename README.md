@@ -190,7 +190,7 @@ This will produce the following output files:
 
 ---
 
-## 📂 Repository Structure (Example)
+## 📂 Repository Structure
 
 ``` bash
 
